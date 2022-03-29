@@ -1,5 +1,5 @@
 import Layout from "./Layout";
-import {Box} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 const Home = () => {
     return(
@@ -14,8 +14,10 @@ const Home = () => {
                 alignItems:'center'
             }}
             >
-                <h1>Carl Yan</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur cum cupiditate deleniti dolore eius magni nemo vitae? A blanditiis eaque expedita, in labore magni odit optio rerum saepe soluta, veritatis!</p>
+                <Typography variant={'h1'} >Carl Yan</Typography>
+                <Typography variant={'h5'}>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias dignissimos ex ipsam, modi ullam velit. Ab eligendi incidunt inventore mollitia quos voluptatum! Accusamus aspernatur consequuntur dicta, illum modi voluptate.
+                </Typography>
 
             </Box>
         </Layout>
