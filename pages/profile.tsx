@@ -1,7 +1,19 @@
 import Layout from "./Layout";
-import {Avatar, Box, Button, Card, CardContent, CardMedia, Grid, LinearProgress, LinearProgressProps, Typography} from "@mui/material";
+import {Avatar, Box, Button, Grid, LinearProgress, LinearProgressProps, Typography} from "@mui/material";
 import {Email, GitHub, LinkedIn} from "@mui/icons-material";
-import profilepic from "../images/profile_pic_2.png"
+import {NextPage} from "next";
+// @ts-ignore
+import {getSkills} from "./notion";
+
+type Skill = {
+    name:string,
+    proficiency:number,
+    url:string
+}
+
+type Props = {
+    skills:Array<Skill>
+}
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
     return (
@@ -16,7 +28,7 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
     );
 }
 
-const Profile = () => {
+const Profile : NextPage<Props> = ({skills}) => {
 
     return(
         <Layout title={"Profile"}>
@@ -62,16 +74,19 @@ const Profile = () => {
 
                 <Grid item md={8} xs={10}>
                     <Grid container spacing={10} justifyContent={'space-evenly'}>
-                        <Grid item md={3} xs={6}>
-                            <Avatar
-                                variant={'rounded'}
-                                sx={{width:'100%', height:'auto', mb:'20px'}}
-                                src={"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"}
-                            />
-                            <Typography variant={'h6'} textAlign={'center'}>Skill 1</Typography>
-                            <LinearProgressWithLabel value={23.91423}/>
+                        {skills.map( (skill, index) => (
+                            <Grid item md={3} xs={6} key={index}>
+                                <Avatar
+                                    variant={'rounded'}
+                                    sx={{width:'100%', height:'auto', mb:'20px'}}
+                                    src={skill.url}
+                                />
+                                <Typography variant={'h6'} textAlign={'center'}>{skill.name}</Typography>
+                                <LinearProgressWithLabel value={skill.proficiency}/>
 
-                        </Grid>
+                            </Grid>
+                        ))}
+
 
 
                     </Grid>
@@ -83,6 +98,11 @@ const Profile = () => {
         </Layout>
     )
 
+}
+
+export async function getStaticProps(){
+    let skills : Skill = await getSkills()
+    return {props:{skills}}
 }
 
 export default Profile

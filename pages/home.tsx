@@ -1,7 +1,14 @@
 import Layout from "./Layout";
 import {Box, Typography} from "@mui/material";
+import {Client} from "@notionhq/client"
+import {getHomePageDescription} from "./notion";
+import {GetStaticProps, NextPage} from "next";
 
-const Home = () => {
+type Prop = {
+    desc:string
+}
+
+const Home : NextPage<Prop> = ({desc}) => {
     return(
         <Layout title={"Home"}>
             <Box
@@ -16,12 +23,18 @@ const Home = () => {
             >
                 <Typography variant={'h1'} >Carl Yan</Typography>
                 <Typography variant={'h5'}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias dignissimos ex ipsam, modi ullam velit. Ab eligendi incidunt inventore mollitia quos voluptatum! Accusamus aspernatur consequuntur dicta, illum modi voluptate.
+                    {desc}
                 </Typography>
 
             </Box>
         </Layout>
     )
+}
+
+export async function getStaticProps() {
+    let desc = await getHomePageDescription()
+    return {props:{desc}}
+
 }
 
 export default Home
