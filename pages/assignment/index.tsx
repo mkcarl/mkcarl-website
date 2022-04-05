@@ -1,16 +1,29 @@
 import {NextPage} from "next";
 import Layout from "../Layout";
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, CardMedia, Dialog, Grid, Typography} from "@mui/material";
 import {getSchoolProjects} from "../notion";
-import { Project } from "../types";
+import { Project as Proj }  from "../types";
+import {useRouter} from "next/router";
+import Project from "../Project";
+import {useState} from "react";
 
 
 
 type Props = {
-    projects:Array<Project>
+    projects:Array<Proj>
 }
 
 const Assignment:NextPage<Props> = ({projects}) => {
+    const router = useRouter()
+    const [open, setOpen] = useState(false)
+
+    const closeDialog = () => {
+        setOpen(false)
+        router.push("/assignment")
+    }
+    const projectDetails = (code:string) =>(
+        router.push(`/assignment/?code=${code}`, `/assignment/${code}`)
+    )
 
     const projectCards = (startDate:string, endDate:string, title:string) => {
         return (
@@ -37,7 +50,11 @@ const Assignment:NextPage<Props> = ({projects}) => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small">Details</Button>
+                                    <Button size="small" onClick={()=>{
+                                        projectDetails(project.Code)
+                                        setOpen(true)
+                                    }
+                                    }>Details</Button>
                                 </CardActions>
                             </Card>
                         </Grid>);
@@ -64,6 +81,13 @@ const Assignment:NextPage<Props> = ({projects}) => {
                 {projectCards("2022-05-01", "2023-05-01", "Degree Year 3")}
 
             </Grid>
+            
+            <Dialog open={open} onClose={closeDialog} maxWidth={"xl"}>
+                <Box sx={{px:'5rem'}}>
+                    <Project/>
+
+                </Box>
+            </Dialog>
         </Layout>
     )
 }
