@@ -4,12 +4,9 @@ import {Email, GitHub, LinkedIn} from "@mui/icons-material";
 import {NextPage} from "next";
 // @ts-ignore
 import {getSkills} from "./notion";
+import {Skill} from "./types";
 
-type Skill = {
-    name:string,
-    proficiency:number,
-    url:string
-}
+
 
 type Props = {
     skills:Array<Skill>
@@ -101,7 +98,7 @@ const Profile : NextPage<Props> = ({skills}) => {
 }
 
 export async function getStaticProps(){
-    let skills : Skill = await getSkills()
+    let skills : Array<Skill> = await getSkills()
     return {props:{skills}}
 }
 

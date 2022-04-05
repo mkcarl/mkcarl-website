@@ -1,8 +1,16 @@
 import {NextPage} from "next";
 import Layout from "../Layout";
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} from "@mui/material";
+import {getSchoolProjects} from "../notion";
+import { Project } from "../types";
 
-const Assignment:NextPage = () => {
+
+
+type Props = {
+    projects:Array<Project>
+}
+
+const Assignment:NextPage<Props> = ({projects}) => {
     return(
         <Layout title={"Assignment"}>
             <Box sx={{
@@ -16,76 +24,96 @@ const Assignment:NextPage = () => {
                 <Grid item md={12}>
                     <Typography variant={'h3'}>Degree Year 1</Typography>
                 </Grid>
-                <Grid item md={4}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Project 1
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid consequuntur dicta dolore, dolores doloribus earum esse facilis modi, nesciunt perferendis placeat possimus qui repellat repellendus rerum velit, voluptate voluptatem?
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Details</Button>
-                        </CardActions>
-                    </Card>
-                </Grid>
+                {projects.map((project) =>{
+                    return new Date(project.Period) < new Date("2020-05-01") || new Date(project.Period) > new Date("2021-05-01") ? null : (
+                        <Grid item key={project.Code} md={4}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={project.CoverPhotoLink}
+                                    alt={project.Name}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {project.Name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {project.Description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Details</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>);
+                })}
 
-                <Grid item md={4}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Project 1
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid consequuntur dicta dolore, dolores doloribus earum esse facilis modi, nesciunt perferendis placeat possimus qui repellat repellendus rerum velit, voluptate voluptatem?
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Details</Button>
-                        </CardActions>
-                    </Card>
+                <Grid item md={12}>
+                    <Typography variant={'h3'}>Degree Year 2</Typography>
                 </Grid>
+                {projects.map((project) =>{
+                    return new Date(project.Period) < new Date("2021-05-01") || new Date(project.Period) > new Date("2022-05-01") ? null : (
+                        <Grid item key={project.Code} md={4}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={project.CoverPhotoLink}
+                                    alt={project.Name}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {project.Name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {project.Description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Details</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>);
+                })}
 
-                <Grid item xl={4}>
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2017Q2/project-planning-header@2x.png"
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Project 1
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid consequuntur dicta dolore, dolores doloribus earum esse facilis modi, nesciunt perferendis placeat possimus qui repellat repellendus rerum velit, voluptate voluptatem?
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Details</Button>
-                        </CardActions>
-                    </Card>
+
+                <Grid item md={12}>
+                    <Typography variant={'h3'}>Degree Year 3</Typography>
                 </Grid>
+                {projects.map((project) =>{
+                    return new Date(project.Period) < new Date("2022-05-01") || new Date(project.Period) > new Date("2023-05-01") ? null : (
+                        <Grid item key={project.Code} md={4}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={project.CoverPhotoLink}
+                                    alt={project.Name}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {project.Name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {project.Description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Details</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>);
+                })}
+
             </Grid>
-
-
         </Layout>
     )
+}
+
+export async function getStaticProps(){
+    let projects = await getSchoolProjects()
+    return ({props: {projects}})
 }
 
 export default Assignment

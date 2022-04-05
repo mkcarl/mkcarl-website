@@ -33,3 +33,51 @@ export async function getSkills(){
     )
     return (skills)
 }
+
+export async function getSchoolProjects(){
+    const databaseId = '16d6253933c541e8b56fc6f9fc6da536';
+    const response = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+            property: 'Type',
+            select:{
+                equals:"School"
+            },
+
+        },
+        sorts: [
+            {
+                property: 'Period',
+                direction: 'ascending',
+            },
+        ],
+    });
+    let projects
+    projects = await Promise.all(response.results.map(async (project)=>{
+        let     entry = {}
+        entry.Code=project.properties.Code.title[0].plain_text
+        entry.Name=project.properties.Name.rich_text[0].plain_text
+        entry.Description=project.properties.Description.rich_text[0].plain_text
+        entry.Type=project.properties.Type.select.name
+        entry.Period=project.properties.Period.date.start
+        entry.CoverPhotoLink=project.properties.CoverPhotoLink.url
+        entry.VideoLink=project.properties.VideoLink.url
+        entry.SourceCodeLink=project.properties.SourceCodeLink.url
+        entry.DemoLink=project.properties.DemoLink.url
+        entry.Skills = await Promise.all(project.properties.Skills.relation.map(async ({id}) => {
+            return await getSkillFromNotionID(id)
+        }))
+        return entry
+    }))
+    return projects
+}
+
+async function getSkillFromNotionID(notion_page_id){
+    const pageId = notion_page_id;
+    const response = await notion.pages.retrieve({ page_id: pageId });
+    let entry = {}
+    entry.name = response.properties.Name.title[0].plain_text
+    entry.proficiency = response.properties.Proficiency.number
+    entry.url = response.properties.ImageURL.url
+    return entry
+}
