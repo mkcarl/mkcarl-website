@@ -1,52 +1,73 @@
-import {Box, Button, Grid, List, ListItem, ListItemIcon, ListItemText, Typography} from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Button,
+    Grid,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemIcon,
+    ListItemText,
+    Typography
+} from "@mui/material";
 import {Star} from "@mui/icons-material";
+import {ProjectType} from "./types";
+import { FC } from "react";
+import Image from "next/image"
 
-const Project = () => {
+type Props = {
+    project?:ProjectType
+}
+
+const Project:FC<Props> = ({project}) => {
+    if (typeof project === "undefined") return null
     return (
         <Grid container spacing={3} sx={{my:'2rem'}}>
             <Grid item md={8} xs={12}>
-                <Typography variant={'h3'}>Project Name</Typography>
-                <Typography variant={'body1'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse ex laborum laudantium magnam obcaecati quod repellat similique vitae. Deserunt ea eius eum fugit ipsa molestiae odit quia quo soluta voluptatem.</Typography>
+                <Typography variant={'h3'}>{project.Name}</Typography>
+                <Typography variant={'body1'}>{project.Description}</Typography>
             </Grid>
 
             <Grid item md={4} xs={12}>
-                <p>media goes here</p>
+                {project.VideoLink !== null ?
+                    <Box
+                        component={'iframe'}
+                        src={project.VideoLink}
+                        allowFullScreen={true}
+                        frameBorder={0}
+                    /> :
+                    <Box
+                        component={'img'}
+                        src={project.CoverPhotoLink}
+                        maxWidth={'100%'}
+                    />
+                }
             </Grid>
 
             <Grid item md={5} xs={12}>
                 <Typography variant={'h4'}>Skills</Typography>
                 <List>
-                    <ListItem>
-                        <ListItemIcon>
-                            <Star/>
-                        </ListItemIcon>
-                        <ListItemText>Skill 1</ListItemText>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <Star/>
-                        </ListItemIcon>
-                        <ListItemText>Skill 2</ListItemText>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <Star/>
-                        </ListItemIcon>
-                        <ListItemText>Skill 3</ListItemText>
-                    </ListItem>
+                        {project.Skills.map((skill)=>{
+                            return <ListItem key={skill.name}>
+                                <ListItemAvatar>
+                                    <Avatar variant={'rounded'} src={skill.url}/>
+                                </ListItemAvatar>
+                                <ListItemText>{skill.name}</ListItemText>
+                            </ListItem>
+                        })}
                 </List>
             </Grid>
 
             <Grid item md={7} xs={12}>
                 <Typography variant={'h4'}>Project Outcome</Typography>
-                <Typography variant={'body1'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate eius eum ex facilis fuga harum incidunt ipsam laudantium magni nemo nesciunt quia reiciendis repellat reprehenderit sunt suscipit tempore vel, voluptatibus.</Typography>
+                <Typography variant={'body1'}>{project.Outcome}</Typography>
                 <Box sx={{
                     display:'flex',
                     flexDirection:'row',
                     justifyContent:'space-around'
                 }}>
-                    <Button variant={'outlined'}>Source Code</Button>
-                    <Button variant={'outlined'}>Demo</Button>
+                    <Button variant={'outlined'} href={project.SourceCodeLink} target={'_blank'} disabled={project.SourceCodeLink === null}>Source Code</Button>
+                    <Button variant={'outlined'} href={project.DemoLink} target={'_blank'} disabled={project.DemoLink === null}>Demo</Button>
                 </Box>
             </Grid>
         </Grid>

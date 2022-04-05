@@ -1,10 +1,10 @@
-export type Skill = {
+export type SkillType = {
     name:string,
     proficiency:number,
     url:string
 }
 
-export type Project = {
+export type ProjectType = {
     Code:string,
     Name:string,
     Description:string,
@@ -14,5 +14,6 @@ export type Project = {
     VideoLink:string,
     SourceCodeLink:string,
     DemoLink:string,
-    Skills:Array<Skill>
+    Skills:Array<SkillType>,
+    Outcome:string
 }

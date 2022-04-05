@@ -2,7 +2,7 @@ import {NextPage} from "next";
 import Layout from "../Layout";
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Dialog, Grid, Typography} from "@mui/material";
 import {getSchoolProjects} from "../notion";
-import { Project as Proj }  from "../types";
+import { ProjectType as Proj }  from "../types";
 import {useRouter} from "next/router";
 import Project from "../Project";
 import {useState} from "react";
@@ -83,9 +83,8 @@ const Assignment:NextPage<Props> = ({projects}) => {
             </Grid>
             
             <Dialog open={open} onClose={closeDialog} maxWidth={"xl"}>
-                <Box sx={{px:'5rem'}}>
-                    <Project/>
-
+                <Box sx={{px: {xs:'1rem',md:'5rem'}}}>
+                    <Project project={projects.find((project) => project.Code === router.query.code)}/>
                 </Box>
             </Dialog>
         </Layout>

@@ -4,12 +4,12 @@ import {Email, GitHub, LinkedIn} from "@mui/icons-material";
 import {NextPage} from "next";
 // @ts-ignore
 import {getSkills} from "./notion";
-import {Skill} from "./types";
+import {SkillType} from "./types";
 
 
 
 type Props = {
-    skills:Array<Skill>
+    skills:Array<SkillType>
 }
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
@@ -98,7 +98,7 @@ const Profile : NextPage<Props> = ({skills}) => {
 }
 
 export async function getStaticProps(){
-    let skills : Array<Skill> = await getSkills()
+    let skills : Array<SkillType> = await getSkills()
     return {props:{skills}}
 }
 

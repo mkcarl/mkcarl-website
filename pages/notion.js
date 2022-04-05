@@ -67,8 +67,10 @@ export async function getSchoolProjects(){
         entry.Skills = await Promise.all(project.properties.Skills.relation.map(async ({id}) => {
             return await getSkillFromNotionID(id)
         }))
+        entry.Outcome = project.properties.Outcome.rich_text[0].plain_text
         return entry
     }))
+    console.log(JSON.stringify(projects, null, 2))
     return projects
 }
 
