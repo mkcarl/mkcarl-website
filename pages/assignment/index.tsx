@@ -11,6 +11,44 @@ type Props = {
 }
 
 const Assignment:NextPage<Props> = ({projects}) => {
+
+    const projectCards = (startDate:string, endDate:string, title:string) => {
+        return (
+            <>
+                <Grid item md={12}>
+                    <Typography variant={'h3'}>{title}</Typography>
+                </Grid>
+                {projects.map((project) => {
+                    return new Date(project.Period) < new Date(startDate) || new Date(project.Period) > new Date(endDate) ? null : (
+                        <Grid item key={project.Code} md={4} xs={12}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image={project.CoverPhotoLink}
+                                    alt={project.Name}
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {project.Name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {project.Description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Details</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>);
+                })}
+                <Grid item xs={12} my={'1rem'}/>
+            </>
+        )
+
+
+    }
+
     return(
         <Layout title={"Assignment"}>
             <Box sx={{
@@ -21,90 +59,9 @@ const Assignment:NextPage<Props> = ({projects}) => {
                 <Typography variant={'h6'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aut commodi consequatur deleniti dolorem dolorum facere id nam obcaecati odit perferendis perspiciatis possimus praesentium quae quia, quibusdam reprehenderit, repudiandae rerum.</Typography>
             </Box>
             <Grid container spacing={3}>
-                <Grid item md={12}>
-                    <Typography variant={'h3'}>Degree Year 1</Typography>
-                </Grid>
-                {projects.map((project) =>{
-                    return new Date(project.Period) < new Date("2020-05-01") || new Date(project.Period) > new Date("2021-05-01") ? null : (
-                        <Grid item key={project.Code} md={4}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={project.CoverPhotoLink}
-                                    alt={project.Name}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {project.Name}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.Description}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Details</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>);
-                })}
-
-                <Grid item md={12}>
-                    <Typography variant={'h3'}>Degree Year 2</Typography>
-                </Grid>
-                {projects.map((project) =>{
-                    return new Date(project.Period) < new Date("2021-05-01") || new Date(project.Period) > new Date("2022-05-01") ? null : (
-                        <Grid item key={project.Code} md={4}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={project.CoverPhotoLink}
-                                    alt={project.Name}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {project.Name}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.Description}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Details</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>);
-                })}
-
-
-                <Grid item md={12}>
-                    <Typography variant={'h3'}>Degree Year 3</Typography>
-                </Grid>
-                {projects.map((project) =>{
-                    return new Date(project.Period) < new Date("2022-05-01") || new Date(project.Period) > new Date("2023-05-01") ? null : (
-                        <Grid item key={project.Code} md={4}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={project.CoverPhotoLink}
-                                    alt={project.Name}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {project.Name}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.Description}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Details</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>);
-                })}
+                {projectCards("2020-05-01", "2021-05-01", "Degree Year 1")}
+                {projectCards("2021-05-01", "2022-05-01", "Degree Year 2")}
+                {projectCards("2022-05-01", "2023-05-01", "Degree Year 3")}
 
             </Grid>
         </Layout>
