@@ -73,7 +73,9 @@ const Assignment:NextPage<Props> = ({projects}) => {
                 my:'5rem'
             }}>
                 <Typography variant={'h2'}>University Assignments</Typography>
-                <Typography variant={'h6'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aut commodi consequatur deleniti dolorem dolorum facere id nam obcaecati odit perferendis perspiciatis possimus praesentium quae quia, quibusdam reprehenderit, repudiandae rerum.</Typography>
+                <Typography variant={'h6'}>
+                    These are the projects or assignments that was done in accordance to my syllabus in my Degree in Computer Science. The projects are done according to the requirements provided.
+                </Typography>
             </Box>
             <Grid container spacing={3}>
                 {projectCards("2020-05-01", "2021-05-01", "Degree Year 1")}
@@ -91,9 +93,9 @@ const Assignment:NextPage<Props> = ({projects}) => {
     )
 }
 
-export async function getServerSideProps(){
+export async function getStaticProps(){
     let projects = await getSchoolProjects()
-    return ({props: {projects}})
+    return ({props: {projects}, revalidate:10})
 }
 
 export default Assignment

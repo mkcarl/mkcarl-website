@@ -1,13 +1,16 @@
 import Layout from "./Layout";
-import {Box, Typography} from "@mui/material";
+import {Box, Link, Typography} from "@mui/material";
 import {getHomePageDescription} from "../notion";
 import {NextPage} from "next";
+import {useRouter} from "next/router";
 
-type Prop = {
-    desc:string
-}
 
-const Home : NextPage<Prop> = ({desc}) => {
+const Home : NextPage = () => {
+    const router = useRouter()
+    const gotoProfilePage = () => {
+        router.push('/profile')
+    }
+
     return(
         <Layout title={"Home"}>
             <Box
@@ -22,18 +25,12 @@ const Home : NextPage<Prop> = ({desc}) => {
             >
                 <Typography variant={'h1'} >Carl Yan</Typography>
                 <Typography variant={'h5'}>
-                    {desc}
+                    Hi there, I&apos;m Carl from Malaysia. Currently pursuing my bachelor&apos;s degree in the field of Computer Science (Artificial Intelligence). Welcome to my website where I showcase my past programming projects for my university work, as well as my personal hobby projects. Hope you get to understand more about my projects. Feel free to contact me through the contacts available in my <Link onClick={gotoProfilePage}>profile</Link> page.
                 </Typography>
 
             </Box>
         </Layout>
     )
-}
-
-export async function getServerSideProps() {
-    let desc = await getHomePageDescription()
-    return {props:{desc}}
-
 }
 
 export default Home

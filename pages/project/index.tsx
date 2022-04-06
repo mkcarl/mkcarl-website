@@ -31,7 +31,9 @@ const Project:NextPage<Props> = ({projects}) => {
                 my:'5rem'
             }}>
                 <Typography variant={'h2'}>Personal Projects</Typography>
-                <Typography variant={'h6'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aut commodi consequatur deleniti dolorem dolorum facere id nam obcaecati odit perferendis perspiciatis possimus praesentium quae quia, quibusdam reprehenderit, repudiandae rerum.</Typography>
+                <Typography variant={'h6'}>
+                    These are my personal hobby projects that I had done / am doing in my free time. These projects mainly serve as a starting ground to learn a particular technology, or to solve the problems that I had / am facing daily.
+                </Typography>
             </Box>
             <Grid container spacing={3}>
                 {projects.map((project) => {
@@ -74,9 +76,9 @@ const Project:NextPage<Props> = ({projects}) => {
     )
 }
 
-export async function getServerSideProps(){
+export async function getStaticProps(){
     let projects = await getPersonalProjects()
-    return ({props: {projects}})
+    return ({props: {projects}, revalidate:10})
 }
 
 export default Project
