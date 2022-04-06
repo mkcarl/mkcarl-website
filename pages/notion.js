@@ -56,10 +56,10 @@ export async function getSchoolProjects(){
     projects = await Promise.all(response.results.map(async (project)=>{
         let     entry = {}
         entry.Code=project.properties.Code.title[0].plain_text
-        entry.Name=project.properties.Name.rich_text[0].plain_text
-        entry.Description=project.properties.Description.rich_text[0].plain_text
+        entry.Name= project.properties.Name.rich_text.length===0 ? null : project.properties.Name.rich_text[0].plain_text
+        entry.Description=project.properties.Description.rich_text.length===0? null : project.properties.Description.rich_text[0].plain_text
         entry.Type=project.properties.Type.select.name
-        entry.Period=project.properties.Period.date.start
+        entry.Period=project.properties.Period.date ? project.properties.Period.date.start : null
         entry.CoverPhotoLink=project.properties.CoverPhotoLink.url
         entry.VideoLink=project.properties.VideoLink.url
         entry.SourceCodeLink=project.properties.SourceCodeLink.url
@@ -67,10 +67,52 @@ export async function getSchoolProjects(){
         entry.Skills = await Promise.all(project.properties.Skills.relation.map(async ({id}) => {
             return await getSkillFromNotionID(id)
         }))
-        entry.Outcome = project.properties.Outcome.rich_text[0].plain_text
+        entry.Outcome =project.properties.Outcome.rich_text.length===0 ? null : project.properties.Outcome.rich_text[0].plain_text
         return entry
     }))
     console.log(JSON.stringify(projects, null, 2))
+    return projects
+}
+
+
+export async function getPersonalProjects(){
+    const databaseId = '16d6253933c541e8b56fc6f9fc6da536';
+    const response = await notion.databases.query({
+        database_id: databaseId,
+        filter: {
+            property: 'Type',
+            select:{
+                equals:"Personal"
+            },
+
+        },
+        sorts: [
+            {
+                property: 'Period',
+                direction: 'ascending',
+            },
+        ],
+    });
+    let projects
+    projects = await Promise.all(response.results.map(async (project)=>{
+        let entry = {}
+        console.log(JSON.stringify(project.properties, null, 2))
+        entry.Code=project.properties.Code.title[0].plain_text
+        entry.Name= project.properties.Name.rich_text.length===0 ? null : project.properties.Name.rich_text[0].plain_text
+        entry.Description=project.properties.Description.rich_text.length===0? null : project.properties.Description.rich_text[0].plain_text
+        entry.Type=project.properties.Type.select.name
+        entry.Period=project.properties.Period.date ? project.properties.Period.date.start : null
+        entry.CoverPhotoLink=project.properties.CoverPhotoLink.url
+        entry.VideoLink=project.properties.VideoLink.url
+        entry.SourceCodeLink=project.properties.SourceCodeLink.url
+        entry.DemoLink=project.properties.DemoLink.url
+        entry.Skills = await Promise.all(project.properties.Skills.relation.map(async ({id}) => {
+            return await getSkillFromNotionID(id)
+        }))
+        entry.Outcome =project.properties.Outcome.rich_text.length===0 ? null : project.properties.Outcome.rich_text[0].plain_text
+        return entry
+    }))
+    // console.log(JSON.stringify(projects, null, 2))
     return projects
 }
 

@@ -19,7 +19,7 @@ type Props = {
     project?:ProjectType
 }
 
-const Project:FC<Props> = ({project}) => {
+const ProjectPage:FC<Props> = ({project}) => {
     if (typeof project === "undefined") return null
     return (
         <Grid container spacing={3} sx={{my:'2rem'}}>
@@ -74,4 +74,4 @@ const Project:FC<Props> = ({project}) => {
     )
 }
 
-export default Project
+export default ProjectPage

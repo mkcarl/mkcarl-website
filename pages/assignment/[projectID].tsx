@@ -1,11 +1,11 @@
 import {NextPage} from "next";
 import Layout from "../Layout";
-import Project from "../Project";
+import ProjectPage from "../ProjectPage";
 
 const AssignmentProject:NextPage = () => {
     return (
         <Layout title={'from next router'}>
-            <Project/>
+            <ProjectPage/>
         </Layout>
     )
 }
