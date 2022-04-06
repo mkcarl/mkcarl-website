@@ -7,9 +7,11 @@ const Home: NextPage = () => {
     const router = useRouter()
 
     useEffect(()=>{
-        const {pathname} = router
-        if (pathname == '/')
-            router.push('/home')
+        if (typeof window !== "undefined") {
+            const {pathname} = router
+            if (pathname == '/')
+                router.push('/home')
+        }
     }, [])
 
   return (
