@@ -6,14 +6,11 @@ import {
     List,
     ListItem,
     ListItemAvatar,
-    ListItemIcon,
     ListItemText,
     Typography
 } from "@mui/material";
-import {Star} from "@mui/icons-material";
 import {ProjectType} from "../types";
 import { FC } from "react";
-import Image from "next/image"
 
 type Props = {
     project?:ProjectType

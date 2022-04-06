@@ -1,8 +1,7 @@
 import Layout from "./Layout";
 import {Box, Typography} from "@mui/material";
-import {Client} from "@notionhq/client"
 import {getHomePageDescription} from "../notion";
-import {GetStaticProps, NextPage} from "next";
+import {NextPage} from "next";
 
 type Prop = {
     desc:string
@@ -31,7 +30,7 @@ const Home : NextPage<Prop> = ({desc}) => {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     let desc = await getHomePageDescription()
     return {props:{desc}}
 

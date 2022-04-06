@@ -91,7 +91,7 @@ const Assignment:NextPage<Props> = ({projects}) => {
     )
 }
 
-export async function getStaticProps(){
+export async function getServerSideProps(){
     let projects = await getSchoolProjects()
     return ({props: {projects}})
 }

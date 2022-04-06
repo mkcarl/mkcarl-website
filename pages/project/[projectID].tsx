@@ -1,18 +1,17 @@
 import {NextPage} from "next";
 import Layout from "../Layout";
 import ProjectPage from "../ProjectPage";
-import {getProjectByID} from "../../notion";
 import {ProjectType} from "../../types";
+import {getProjectByID} from "../../notion";
 
 type Props = {
     project:ProjectType
 }
 
-
-const AssignmentProject:NextPage<Props> = ({project}) => {
+const PersonalProject:NextPage<Props> = ({project}) => {
     return (
         <Layout title={project.Name}>
-            <ProjectPage/>
+            <ProjectPage project={project}/>
         </Layout>
     )
 }
@@ -22,4 +21,4 @@ export async function getServerSideProps(context: { params: { projectID: any; };
     return {props:{project:project}}
 }
 
-export default AssignmentProject
+export default PersonalProject

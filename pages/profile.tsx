@@ -97,7 +97,7 @@ const Profile : NextPage<Props> = ({skills}) => {
 
 }
 
-export async function getStaticProps(){
+export async function getServerSideProps(){
     let skills : Array<SkillType> = await getSkills()
     return {props:{skills}}
 }
