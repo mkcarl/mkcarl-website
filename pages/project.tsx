@@ -1,11 +1,11 @@
-import {ProjectType as Proj} from "./types";
+import {ProjectType as Proj} from "../types";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Dialog, Grid, Typography} from "@mui/material";
 import Layout from "./Layout";
 import ProjectPage from "./ProjectPage";
 import {NextPage} from "next";
-import {getPersonalProjects} from "./notion";
+import {getPersonalProjects} from "../notion";
 
 type Props = {
     projects:Array<Proj>

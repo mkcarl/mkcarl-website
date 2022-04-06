@@ -3,8 +3,8 @@ import {Avatar, Box, Button, Grid, LinearProgress, LinearProgressProps, Typograp
 import {Email, GitHub, LinkedIn} from "@mui/icons-material";
 import {NextPage} from "next";
 // @ts-ignore
-import {getSkills} from "./notion";
-import {SkillType} from "./types";
+import {getSkills} from "../notion";
+import {SkillType} from "../types";
 
 
 

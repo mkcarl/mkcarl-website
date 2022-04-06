@@ -1,7 +1,7 @@
 import Layout from "./Layout";
 import {Box, Typography} from "@mui/material";
 import {Client} from "@notionhq/client"
-import {getHomePageDescription} from "./notion";
+import {getHomePageDescription} from "../notion";
 import {GetStaticProps, NextPage} from "next";
 
 type Prop = {

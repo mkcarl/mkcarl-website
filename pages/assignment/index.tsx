@@ -1,8 +1,8 @@
 import {NextPage} from "next";
 import Layout from "../Layout";
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Dialog, Grid, Typography} from "@mui/material";
-import {getSchoolProjects} from "../notion";
-import { ProjectType as Proj }  from "../types";
+import {getSchoolProjects} from "../../notion";
+import { ProjectType as Proj }  from "../../types";
 import {useRouter} from "next/router";
 import ProjectPage from "../ProjectPage";
 import {useState} from "react";
