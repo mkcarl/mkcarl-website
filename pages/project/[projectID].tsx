@@ -16,9 +16,9 @@ const PersonalProject:NextPage<Props> = ({project}) => {
     )
 }
 
-export async function getServerSideProps(context: { params: { projectID: any; }; }){
+export async function getStaticProps(context: { params: { projectID: any; }; }){
     let project = await getProjectByID(context.params.projectID)
-    return {props:{project:project}}
+    return {props:{project:project}, revalidate:10}
 }
 
 export default PersonalProject

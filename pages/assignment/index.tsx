@@ -45,9 +45,12 @@ const Assignment:NextPage<Props> = ({projects}) => {
                                     <Typography gutterBottom variant="h5" component="div">
                                         {project.Name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.Description}
-                                    </Typography>
+                                    <Box sx={{maxHeight:'5rem', overflow:'hidden'}}>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {project.Description}
+                                        </Typography>
+
+                                    </Box>
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small" onClick={()=>{
@@ -85,7 +88,7 @@ const Assignment:NextPage<Props> = ({projects}) => {
             </Grid>
             
             <Dialog open={open} onClose={closeDialog} maxWidth={"xl"}>
-                <Box sx={{px: {xs:'1rem',md:'5rem'}}}>
+                <Box sx={{px: {xs:'2rem',md:'5rem'}}}>
                     <ProjectPage project={projects.find((project) => project.Code === router.query.code)}/>
                 </Box>
             </Dialog>

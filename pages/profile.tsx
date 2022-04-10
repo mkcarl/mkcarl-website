@@ -77,8 +77,9 @@ const Profile : NextPage<Props> = ({skills}) => {
                                     variant={'rounded'}
                                     sx={{width:'100%', height:'auto', mb:'20px'}}
                                     src={skill.url}
+
                                 />
-                                <Typography variant={'h6'} textAlign={'center'}>{skill.name}</Typography>
+                                <Typography variant={'h6'} textAlign={'center'} sx={{justify:'start'}}>{skill.name}</Typography>
                                 <LinearProgressWithLabel value={skill.proficiency}/>
 
                             </Grid>

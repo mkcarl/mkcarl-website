@@ -21,7 +21,7 @@ const ProjectPage:FC<Props> = ({project}) => {
     return (
         <Grid container spacing={3} sx={{my:'2rem'}}>
             <Grid item md={8} xs={12}>
-                <Typography variant={'h3'}>{project.Name}</Typography>
+                <Typography variant={'h3'} sx={{fontSize:{xs:'2rem'}}}>{project.Name}</Typography>
                 <Typography variant={'body1'}>{project.Description}</Typography>
             </Grid>
 
@@ -32,6 +32,7 @@ const ProjectPage:FC<Props> = ({project}) => {
                         src={project.VideoLink}
                         allowFullScreen={true}
                         frameBorder={0}
+                        maxWidth={'100%'}
                     /> :
                     <Box
                         component={'img'}
@@ -56,7 +57,7 @@ const ProjectPage:FC<Props> = ({project}) => {
             </Grid>
 
             <Grid item md={7} xs={12}>
-                <Typography variant={'h4'}>Project Outcome</Typography>
+                <Typography variant={'h4'} sx={{fontSize:{xs:'2rem'}}}>Project Outcome</Typography>
                 <Typography variant={'body1'}>{project.Outcome}</Typography>
                 <Box sx={{
                     display:'flex',
