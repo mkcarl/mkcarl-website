@@ -25,7 +25,7 @@ export async function getStaticProps(context: { params: { projectID: any; }; }){
 export async function getStaticPaths(){
     const projects = await getSchoolProjects()
     const paths = projects.map((proj)=>({
-        params:{project:proj},
+        params:{projectID:proj.Code},
     }))
 
     return {paths, fallback:false}
