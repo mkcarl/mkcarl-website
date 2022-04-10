@@ -12,7 +12,7 @@ type Props = {
 const AssignmentProject:NextPage<Props> = ({project}) => {
     return (
         <Layout title={project.Name}>
-            <ProjectPage/>
+            <ProjectPage project={project}/>
         </Layout>
     )
 }
