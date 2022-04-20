@@ -42,10 +42,10 @@ const Assignment:NextPage<Props> = ({projects}) => {
                                     alt={project.Name}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {project.Name}
-                                    </Typography>
-                                    <Box sx={{maxHeight:'5rem', overflow:'hidden'}}>
+                                    <Box sx={{height:'8rem', overflow:'hidden'}}>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {project.Name}
+                                        </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {project.Description}
                                         </Typography>
@@ -98,7 +98,7 @@ const Assignment:NextPage<Props> = ({projects}) => {
 
 export async function getStaticProps(){
     let projects = await getSchoolProjects()
-    return ({props: {projects}, revalidate:10})
+    return ({props: {projects}})
 }
 
 export default Assignment

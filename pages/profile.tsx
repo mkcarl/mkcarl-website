@@ -101,7 +101,7 @@ const Profile : NextPage<Props> = ({skills}) => {
 export async function getStaticProps(){
     console.log("new update request")
     let skills : Array<SkillType> = await getSkills()
-    return {props:{skills},revalidate:5}
+    return {props:{skills}}
 }
 
 export default Profile

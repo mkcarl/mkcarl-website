@@ -18,7 +18,7 @@ const PersonalProject:NextPage<Props> = ({project}) => {
 
 export async function getStaticProps(context: { params: { projectID: any; }; }){
     let project = await getProjectByID(context.params.projectID)
-    return {props:{project:project}, revalidate:10}
+    return {props:{project:project}}
 }
 
 export async function getStaticPaths(){

@@ -47,12 +47,14 @@ const Project:NextPage<Props> = ({projects}) => {
                                     alt={project.Name}
                                 />
                                 <CardContent>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {project.Name}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {project.Description}
-                                    </Typography>
+                                    <Box sx={{height:'8rem', overflow:'hidden'}}>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {project.Name}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {project.Description}
+                                        </Typography>
+                                    </Box>
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small" onClick={()=>{
@@ -78,7 +80,7 @@ const Project:NextPage<Props> = ({projects}) => {
 
 export async function getStaticProps(){
     let projects = await getPersonalProjects()
-    return ({props: {projects}, revalidate:10})
+    return ({props: {projects}})
 }
 
 export default Project
